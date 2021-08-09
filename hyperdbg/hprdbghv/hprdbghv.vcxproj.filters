@@ -236,6 +236,9 @@
     <ClCompile Include="Ioctl.c">
       <Filter>Source Files\Driver</Filter>
     </ClCompile>
+    <ClCompile Include="HookInitOnDerviceCreate.c">
+      <Filter>Source Files\Debugger\Features\Hooks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebuggerCommands.h">

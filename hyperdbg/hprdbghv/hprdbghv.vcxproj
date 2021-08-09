@@ -118,6 +118,7 @@
     <ClCompile Include="Ept.c" />
     <ClCompile Include="Events.c" />
     <ClCompile Include="GdbStub.c" />
+    <ClCompile Include="HookInitOnDerviceCreate.c" />
     <ClCompile Include="Kd.c" />
     <ClCompile Include="KernelTests.c" />
     <ClCompile Include="Mtf.c" />

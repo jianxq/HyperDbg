@@ -61,4 +61,4 @@
  * and also enters debugger in debugging section to break the debugger in the
  * case of errors
  */
-#define DebugMode FALSE
+#define DebugMode TRUE

@@ -34,6 +34,12 @@
 #define VMCALL_CHANGE_PAGE_ATTRIB 0x3
 
 /**
+ * @brief VMCALL to Hook Change the attribute bits of the EPT Table
+ * 
+ */
+#define VMCALL_CHANGE_PAGE_ATTRIB1 0x301
+
+/**
  * @brief VMCALL to invalidate EPT (All Contexts)
  * 
  */

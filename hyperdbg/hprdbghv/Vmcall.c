@@ -141,6 +141,32 @@ VmxVmcallHandler(UINT64      VmcallNumber,
 
         break;
     }
+    case VMCALL_CHANGE_PAGE_ATTRIB1:
+    {
+        //
+        // Mask is the upper 32 bits to this Vmcall
+        // Upper 32 bits of the Vmcall contains the attribute mask
+        //
+        UINT32 AttributeMask = (UINT32)((VmcallNumber & 0xFFFFFFFF00000000LL) >> 32);
+
+        UnsetRead  = (AttributeMask & PAGE_ATTRIB_READ) ? TRUE : FALSE;
+        UnsetWrite = (AttributeMask & PAGE_ATTRIB_WRITE) ? TRUE : FALSE;
+        UnsetExec  = (AttributeMask & PAGE_ATTRIB_EXEC) ? TRUE : FALSE;
+
+        CR3_TYPE ProcCr3 = {0};
+        ProcCr3.Flags    = OptionalParam3;
+
+        HookResult = EptHookPerformPageHook3(OptionalParam1 /* TargetAddress */,
+                                             OptionalParam2 /* Hook Function*/,
+                                             ProcCr3 /* Process cr3 */,
+                                             UnsetRead,
+                                             UnsetWrite,
+                                             UnsetExec);
+
+        VmcallStatus = (HookResult == TRUE) ? STATUS_SUCCESS : STATUS_UNSUCCESSFUL;
+
+        break;
+    }
     case VMCALL_INVEPT_SINGLE_CONTEXT:
     {
         InveptSingleContext(OptionalParam1);

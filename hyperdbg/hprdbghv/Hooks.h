@@ -126,7 +126,24 @@ PVOID(*ExAllocatePoolWithTagOrig)
     POOL_TYPE PoolType,
     SIZE_T    NumberOfBytes,
     ULONG     Tag);
+/**
+ * @brief Find entry from SSDT table of Nt fucntions and W32Table syscalls
+ * 
+ * @param ApiNumber The Syscall Number
+ * @param GetFromWin32k Is this syscall from Win32K
+ * @return PVOID Returns the address of the function from SSDT, otherwise returns NULL
+ */
+PVOID
+SyscallHookGetFunctionAddress(INT32 ApiNumber, BOOLEAN GetFromWin32k);
 
+BOOLEAN
+EptHookPerformPageHook3(PVOID TargetAddress, PVOID HookFunction, CR3_TYPE ProcessCr3, BOOLEAN UnsetRead, BOOLEAN UnsetWrite, BOOLEAN UnsetExecute);
+
+BOOLEAN
+EptHook3(PVOID TargetAddress, PVOID HookFunction, UINT32 ProcessId, BOOLEAN SetHookForRead, BOOLEAN SetHookForWrite, BOOLEAN SetHookForExec);
+
+PVOID
+HookInitOnDerviceCreate();
 // ----------------------------------------------------------------------
 
 /**
