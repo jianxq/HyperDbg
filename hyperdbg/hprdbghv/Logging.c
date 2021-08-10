@@ -187,7 +187,7 @@ LogSendBuffer(UINT32 OperationCode, PVOID Buffer, UINT32 BufferLength)
         //
         // Set the index
         //
-        Index = 1;
+        Index = 0;
         SpinlockLock(&VmxRootLoggingLock);
     }
     else

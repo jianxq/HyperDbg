@@ -141,7 +141,7 @@ ReadIrpBasedBuffer()
         FILE_SHARE_READ | FILE_SHARE_WRITE,
         NULL, /// lpSecurityAttirbutes
         OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED,
+        FILE_ATTRIBUTE_NORMAL,
         NULL); /// lpTemplateFile
 
     if (Handle == INVALID_HANDLE_VALUE)
@@ -584,7 +584,7 @@ HyperdbgLoadVmm()
         FILE_SHARE_READ | FILE_SHARE_WRITE,
         NULL, /// lpSecurityAttirbutes
         OPEN_EXISTING,
-        FILE_ATTRIBUTE_NORMAL | FILE_FLAG_OVERLAPPED,
+        FILE_ATTRIBUTE_NORMAL,
         NULL); /// lpTemplateFile
 
     if (g_DeviceHandle == INVALID_HANDLE_VALUE)
