@@ -26,6 +26,7 @@ DriverEntry(
     PDRIVER_OBJECT  DriverObject,
     PUNICODE_STRING RegistryPath)
 {
+    pDriverObject                 = DriverObject;
     NTSTATUS       Ntstatus       = STATUS_SUCCESS;
     UINT64         Index          = 0;
     UINT32         ProcessorCount = 0;

@@ -103,6 +103,12 @@
     <Filter Include="Source Files\Driver">
       <UniqueIdentifier>{741ef68b-5aac-4ce8-bb82-169a07fc1383}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Debugger\Features\MyDemo">
+      <UniqueIdentifier>{fdc427e7-4aae-44fe-8155-38705da3885e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Debugger\Features\MyDemo">
+      <UniqueIdentifier>{06c27312-76f7-4bef-9ffe-55106393ab72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Inf Include="hprdbghv.inf">
@@ -236,8 +242,20 @@
     <ClCompile Include="Ioctl.c">
       <Filter>Source Files\Driver</Filter>
     </ClCompile>
-    <ClCompile Include="HookInitOnDerviceCreate.c">
-      <Filter>Source Files\Debugger\Features\Hooks</Filter>
+    <ClCompile Include="Ept3Hook.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="Init.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="NtCreateFileHook.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="NtKdpTrapHook.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
+    </ClCompile>
+    <ClCompile Include="GoTP.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -357,6 +375,9 @@
     </ClInclude>
     <ClInclude Include="KernelTests.h">
       <Filter>Header Files\Debugger\Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDemo.h">
+      <Filter>Header Files\Debugger\Features\MyDemo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

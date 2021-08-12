@@ -68,6 +68,7 @@
 #include "Steppings.h"
 #include "Termination.h"
 #include "ScriptEngineCommonDefinitions.h"
+#include "MyDemo.h"
 
 //
 // Global Variables should be the last header to include

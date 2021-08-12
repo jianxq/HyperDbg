@@ -118,10 +118,14 @@
     <ClCompile Include="Ept.c" />
     <ClCompile Include="Events.c" />
     <ClCompile Include="GdbStub.c" />
-    <ClCompile Include="HookInitOnDerviceCreate.c" />
+    <ClCompile Include="GoTP.c" />
+    <ClCompile Include="Ept3Hook.c" />
+    <ClCompile Include="Init.c" />
     <ClCompile Include="Kd.c" />
     <ClCompile Include="KernelTests.c" />
     <ClCompile Include="Mtf.c" />
+    <ClCompile Include="NtCreateFileHook.c" />
+    <ClCompile Include="NtKdpTrapHook.c" />
     <ClCompile Include="ScriptEngine.c" />
     <ClCompile Include="SerialConnection.c" />
     <ClCompile Include="Steppings.c" />
@@ -176,6 +180,7 @@
     <ClInclude Include="KernelTests.h" />
     <ClInclude Include="ManageRegs.h" />
     <ClInclude Include="Mtf.h" />
+    <ClInclude Include="MyDemo.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="HypervisorRoutines.h" />
