@@ -520,10 +520,16 @@ EptHook3(PVOID TargetAddress, PVOID HookFunction, UINT32 ProcessId, BOOLEAN SetH
     return FALSE;
 }
 
-UINT32
-GetCurrentProcessPID()
+INT32
+ExceptionFilter(PEXCEPTION_POINTERS lpExceptionRecord)
 {
-    return (UINT32)PsGetProcessId(PsGetCurrentProcess());
+    LogWarning("Pid = %llx, Rip = %llx, Code=%llx, Address=%llx\n", 
+        (UINT32)PsGetCurrentProcessId(),
+        (UINT64)lpExceptionRecord->ContextRecord->Rip,
+        (UINT64)lpExceptionRecord->ExceptionRecord->ExceptionCode,
+        (UINT64)lpExceptionRecord->ExceptionRecord->ExceptionAddress
+    );
+    return EXCEPTION_EXECUTE_HANDLER;
 }
 
 /**
@@ -577,14 +583,10 @@ _NtCreateFileHook(
         RtlCopyUnicodeString(&kObjectName, ObjectAttributes->ObjectName);
 
         ConvertStatus = RtlUnicodeStringToAnsiString(&FileNameA, ObjectAttributes->ObjectName, TRUE);
-        if (3756 == GetCurrentProcessPID())
-        {
-            LogInfo("NtCreateFile called for : %s, pid=%d", FileNameA.Buffer, GetCurrentProcessPID());
-        }
+        LogInfo("NtCreateFile called for : %s, pid=%d", FileNameA.Buffer, (UINT32)PsGetCurrentProcessId());
     }
-    __except (EXCEPTION_EXECUTE_HANDLER)
+    __except (ExceptionFilter(GetExceptionInformation()))
     {
-        LogWarning("_NtCreateFileHook error,pid = %d", GetCurrentProcessPID());
     }
 
     if (kObjectName.Buffer)
