@@ -126,6 +126,7 @@
     <ClCompile Include="Mtf.c" />
     <ClCompile Include="NtCreateFileHook.c" />
     <ClCompile Include="NtKdpTrapHook.c" />
+    <ClCompile Include="NtQuerySystemInformationHook.c" />
     <ClCompile Include="ScriptEngine.c" />
     <ClCompile Include="SerialConnection.c" />
     <ClCompile Include="Steppings.c" />

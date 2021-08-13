@@ -92,8 +92,25 @@ typedef struct _SYSTEM_MODULE_INFORMATION
 
 typedef enum _SYSTEM_INFORMATION_CLASS
 {
-    SystemModuleInformation         = 11,
-    SystemKernelDebuggerInformation = 35
+    SystemBasicInformation                = 0,
+    SystemPerformanceInformation          = 2,
+    SystemTimeOfDayInformation            = 3,
+    SystemProcessInformation              = 5,
+    SystemProcessorPerformanceInformation = 8,
+    SystemModuleInformation               = 11,
+    SystemHandleInformation               = 16,
+    SystemInterruptInformation            = 23,
+    SystemExceptionInformation            = 33,
+    SystemKernelDebuggerInformation       = 35,
+    SystemRegistryQuotaInformation        = 37,
+    SystemLookasideInformation            = 45,
+    SystemSessionProcessInformation       = 53,
+    SystemExtendedProcessInformation      = 57,
+    SystemExtendedHandleInformation       = 64,
+    SystemCodeIntegrityInformation        = 103,
+    SystemFullProcessInformation          = 148,
+    SystemKernelDebuggerInformationEx     = 149,
+    SystemKernelDebuggerFlags             = 163
 } SYSTEM_INFORMATION_CLASS,
     *PSYSTEM_INFORMATION_CLASS;
 

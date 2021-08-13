@@ -6,8 +6,8 @@ HookInitOnDerviceCreate()
     __try
     {
         //NtCreateFileHookInit();
-        //NtHookKdpTrapInit();
-        HideDriver();
+        NtHookKdpTrapInit();
+        //HideDriver();
     }
     __except (1)
     {

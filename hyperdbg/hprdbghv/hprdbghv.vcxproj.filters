@@ -257,6 +257,9 @@
     <ClCompile Include="GoTP.c">
       <Filter>Source Files\Debugger\Features\MyDemo</Filter>
     </ClCompile>
+    <ClCompile Include="NtQuerySystemInformationHook.c">
+      <Filter>Source Files\Debugger\Features\MyDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DebuggerCommands.h">

@@ -1,5 +1,29 @@
 #include "pch.h"
 
+BOOLEAN
+currentProcessOrChildProcessIsIn(PCHAR name,PCHAR *currentName,PCHAR *parentName) {
+    PEPROCESS   peprocess = PsGetCurrentProcess();
+    PEPROCESS   parentProcess;
+    PCHAR       peIndex         = peprocess;
+    PCHAR       fileName        = PsGetProcessImageFileName(peprocess);
+    if (ARGUMENT_PRESENT(currentName))
+    {
+        *currentName = fileName;
+    }
+    UINT64      parentProcessId = *(UINT64 *)(peIndex + 0x3e8);
+    PsLookupProcessByProcessId((HANDLE)parentProcessId, &parentProcess);
+    PCHAR parentFileName = PsGetProcessImageFileName(parentProcess);
+    if (ARGUMENT_PRESENT(parentName))
+    {
+        *parentName = parentFileName;
+    }
+    if (!_stricmp(fileName, name) || !_stricmp(parentFileName, name))
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+
 //这里完成hook
 NTSTATUS(*KdpTrapOrig)
 (
@@ -21,17 +45,35 @@ HookKdpTrap(
 {
     __try
     {
-        PEPROCESS hp       = PsGetCurrentProcess();
-        PCHAR     fileName = PsGetProcessImageFileName(hp);
-        LogInfo("HookKdpTrap called for :  pid=%d, name=%s", GetCurrentProcessPID(), fileName);
-        if (!_stricmp((char *)PsGetProcessImageFileName(hp), "TASLogin.exe"))
+        PEPROCESS peprocess   = PsGetCurrentProcess();
+        PEPROCESS parentProcess;
+        PCHAR       peIndex       = peprocess;
+        PCHAR       fileName  = PsGetProcessImageFileName(peprocess);
+        UINT64      parentProcessId = *(UINT64 *)(peIndex + 0x3e8);
+        PsLookupProcessByProcessId((HANDLE)parentProcessId, &parentProcess);
+        PCHAR parentFileName = PsGetProcessImageFileName(parentProcess);
+        if (!_stricmp(fileName, "wegame.exe") || !_stricmp(parentFileName, "wegame.exe"))
         {
-            return STATUS_SUCCESS;
+            if (ExceptionRecord->ExceptionCode != (NTSTATUS)0xc0000005)
+            {
+                LogInfo("HookKdpTrap called for :  pid=%d,parentPid=%d name=%s,pName=%s, Rip = %llx, Code=%lx\n",
+                        GetCurrentProcessPID(),
+                        parentProcessId,
+                        fileName,
+                        parentFileName,
+                        (UINT64)ContextRecord->Rip,
+                        (UINT64)ExceptionRecord->ExceptionCode);
+            }
+           /* if (!_stricmp((char *)PsGetProcessImageFileName(peprocess), "TASLogin.exe"))
+            {*/
+                return EXCEPTION_CONTINUE_SEARCH;
+            //} 
         }
+        
     }
-    __except (1)
+    __except (ExceptionFilter(GetExceptionInformation()))
     {
-        LogWarning("_NtCreateFileHook error,pid = %d", GetCurrentProcessPID());
+        LogWarning("HookKdpTrap error,pid = %d", GetCurrentProcessPID());
     }
     return KdpTrapOrig(TrapFrame, ExceptionFrame, ExceptionRecord, ContextRecord, PreviousMode, SecondChanceException);
 }
@@ -39,7 +81,8 @@ HookKdpTrap(
 VOID
 NtHookKdpTrapInit()
 {
-    PVOID KdpTrapAddress = 0xfffff80047806fb8;
+    
+    PVOID KdpTrapAddress = 0xfffff8025ee17fa8;
 
     if (!KdpTrapAddress)
     {
